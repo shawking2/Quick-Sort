@@ -1,0 +1,61 @@
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+void Nhap(long long A[], long long soLuong){
+    for(int i = 0; i < soLuong; i++){
+        cin >> A[i];
+    }
+}
+void QuickSort(long long A[], long long left, long long  right, vector<int> &array){
+    long long i  = left;
+    long long j = right;
+    long long x = A[(left + right)/2];
+    while(i <= j){
+        while(A[i] > x) i++;
+        while(A[j] < x) j--;
+        if(i <= j){
+            swap(A[i], A[j]);
+            if(i != j) {
+               array.push_back(i+1);
+               array.push_back(j+1);
+            }
+            i++;
+            j--;
+        }
+    }
+    if(left < j) QuickSort(A, left, j, array);
+    if(i < right) QuickSort(A, i, right, array);
+}
+void Xuat(long long A[], long long soLuong){
+    for(int i = 0; i < soLuong; i++){
+        cout << A[i] << " ";
+    }
+    cout << endl;
+}
+void Xuat_2(vector<int> array){
+    for(int i = 0; i < array.size(); i += 2){
+        cout << array[i] << " " << array[i+1] << endl;
+    }
+
+}
+int main(){
+    long long n; //so luong phan tu 
+    cin >> n;
+    long long *p = new long long [n];
+    long long  left = 0;
+    vector<int> array(0);    
+    long long right = n - 1;
+    Nhap(p, n);
+    cout << "Day truoc khi sap xep: ";
+    Xuat(p, n);
+    QuickSort(p, left, right, array);
+    cout << "Day sau khi sap xep: ";
+    Xuat(p, n);
+    cout << "Cac hoan vi duoc thuc hien trong Quick Sort:" << endl;
+    Xuat_2(array);
+
+    system("pause");
+    return 0;
+}
